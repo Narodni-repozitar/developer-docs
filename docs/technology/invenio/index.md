@@ -69,7 +69,7 @@ For technical details see the following documentation:
    3. [Editing the metadata](nrp-toolchain/edit-metadata), [compiling](nrp-toolchain/generate-model) and [installing](nrp-toolchain/install-model) the model
        * [Metadata model file format cheat sheet](Model%20cheat%20sheet.pdf)
    4. Creating a new UI
-   5. Running the repository in development mode(run-repository)
+   5. [Running the repository in development mode](nrp-toolchain/run-repository)
    6. Packaging the repository for production deployment
 
 ## References

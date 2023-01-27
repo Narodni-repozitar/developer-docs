@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'NRP documentation',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://narodni-repozitar.github.io/',
   baseUrl: '/developer-docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

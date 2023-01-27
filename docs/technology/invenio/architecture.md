@@ -27,11 +27,11 @@ If one of the steps above fails, the processing is aborted and HTTP error code r
 Service layer work with "abstract" request data which is HTTP independent. It provides the business logic layer
 of the standard 3-tier application model.
 
-In this level:
+On this level:
 
 * permissions are checked
-* semantics of the data is validated via Marshmallow framework (for example, during deposit)
-* request is passed to the Record (persistence) or Search layers
+* syntax/semantics of the data is validated via Marshmallow framework (for example, during deposit or API upload)
+* request is passed to the Record (for persistence) and Search layers
 
 ### Record layer
 
@@ -55,7 +55,7 @@ After indexing, this layer provides:
 The UI chain in invenio comprises of two technologies:
 
 * Server-side rendering with jinja2 templating is used for record landing ("detail") page.
-  Using statically rendered pages leads to better SEO even for non-javascript crawlers (whatsapp, twitter, ...)
+  Using statically rendered pages helps to better SEO even for non javascript-enabled crawlers (whatsapp, twitter, ...)
 * Client-side rendering with React is used for deposit forms, search page and administration as these are usually
   not indexed in search engines. Using client-side technology here gives better user experience and faster responses.
 
@@ -66,9 +66,11 @@ validation is performed the same way as if the information were submitted/retrie
 
 ### Client-side rendering
 
-Client-side rendering uses the normal API endpoints with session and token-based authentication.
+Client-side rendering uses the normal API endpoints with a session and token based authentication.
 
 ## Invenio services
+
+**TODO**
 
 ### Vocabularies
 
@@ -81,8 +83,6 @@ Client-side rendering uses the normal API endpoints with session and token-based
 ### Metadata extraction
 
 ### DOI minting
-
-TODO
 
 ## Infrastructure services
 

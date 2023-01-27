@@ -23,7 +23,7 @@ requires developer experience - one must write the model, prepare UI (editor com
 written in React, view components written as HTML/jinja2 snippets), build and create
 deployment packages.
 
-For simpler scenarios which use existing dataset/document metadata schemas we provide
+**TODO:** For simpler scenarios which use existing dataset/document metadata schemas we provide
 ready to install images which can be customized just with configuration changes, without
 the need for extra software development.
 

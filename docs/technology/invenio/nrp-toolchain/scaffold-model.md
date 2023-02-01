@@ -10,7 +10,7 @@ To simplify model development, nrp-cli provides the following tools:
 * `nrp-cli model compile <name>` compiles the model and generates invenio source files
 * `nrp-cli model install <name>` installs the model into a given site
 
-#### `nrp-cli model add <name>` 
+## `nrp-cli model add <name>` 
 
 This command initializes a new model. It will add `models/<name>` directory and create two files in it:
 
@@ -24,3 +24,11 @@ and you'll just regenerate the model.
 
 The command will ask you if you want to inherit the model from a well-known schema or start from scratch.
 <p style={{color: 'red', fontWeight: "bold"}}>For now, just use the empty model - the other ones are not ready yet</p>
+
+## Model plugins
+
+The following plugins can be used in model. They will be installed automatically if you've selected them in model scaffolding.
+
+* [Tests generator](plugins/tests.md)
+* [Support for files on record](plugins/files.md)
+* [I18N values inside record](plugins/i18n.md)

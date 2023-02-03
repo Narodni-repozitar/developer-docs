@@ -60,3 +60,9 @@ Versions of cookiecutter packages can be modified via environment variables: `OA
 * `release`: Use the current release. This is the default option
 * `maintrunk`: Use the maintrunk version of the respective cookiecutter
 * `<local_path>`: Use the cookiecutter version installed locally on that path
+
+### Invenio-cli version
+
+Invenio-cli version is pinned inside the installer. In cases when the locked version
+is old and a new one works, use `INVENIO_CLI_VERSION=1.0.xx` environment variable.
+Currently the version is pinned to 1.0.16 due to rdm-related bug (#343).

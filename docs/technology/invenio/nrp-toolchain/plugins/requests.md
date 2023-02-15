@@ -1,6 +1,6 @@
 # OARepo model builder requests
 Plugin for oarepo-model-builder to allow specifying requests 
-tied to the base model, based on invenio requests. <br>
+tied to the base model, based on invenio requests.
 
 Requests are requests for an action concerning an instance of the model (called 
 topic in this context), 

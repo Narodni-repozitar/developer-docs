@@ -1,6 +1,6 @@
 # OARepo model builder files
 
-Plugin adding support for working with files based on the invenio model. <br>
+Plugin adding support for working with files based on the invenio model.
 Files are represented as another ("file") record connected with the original parent one.
 The plugin generates the file record and modifies the parent record to create connection with new file one.
 The file record is specified under "files" attribute in the model yaml file, see example 

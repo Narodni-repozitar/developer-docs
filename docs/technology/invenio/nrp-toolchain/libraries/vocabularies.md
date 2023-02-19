@@ -5,7 +5,6 @@ This library provides support for:
 * defining extra metadata on invenio vocabularies (for example, in case the standard key->string mapping in props is not enough)
 * adding hierarchy to your vocabulary items
 
-
 ## Installation
 
 To install the library, add `oarepo-vocabularies` to your dependencies (pipfile, requirements.txt, setup.cfg)

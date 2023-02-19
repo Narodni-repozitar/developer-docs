@@ -25,16 +25,15 @@ VOCABULARIES_SERVICE_CONFIG = VocabulariesConfig
 VOCABULARIES_RESOURCE_CONFIG = VocabulariesResourceConfig
 ```
 
-Because the enhanced vocabularies use custom fields, before storing vocabulary items you will have to 
-add those fields to your opensearch server. To do so, invoke on the command line:
+Because the enhanced vocabularies use custom fields, you will have to add those fields to your opensearch server before you start to populate vocabularies. To do so, invoke on the command line:
 
 ```bash
 invenio oarepo cf init
 ```
 
-If you forget to do so, you will get errors on indexing some of the vocabulary items.
+If you forget to do so, you will get errors while indexing some of the vocabulary items.
 
-Apart from these, just use the current_service/current_resource from `invenio_vocabularies.proxies` with enhanced content. If you ever need to bypass the serivice and use the database(record) level, please use `oarepo_vocabularies.records.api.Vocabulary`.
+Apart from these, just use the current_service/current_resource from `invenio_vocabularies.proxies` with enhanced content - it will be handled appropriately. If you ever need to bypass the service and use the database(record) level, please use `oarepo_vocabularies.records.api.Vocabulary`.
 
 ## Adding extra metadata
 
@@ -72,7 +71,9 @@ class NonPreferredLabelsCF(BaseCF):
         return ma.fields.List(i18n_strings)
 ```
 
-Have a look at [invenio sources](https://github.com/inveniosoftware/invenio-records-resources/tree/master/invenio_records_resources/services/custom_fields) for a list of pre-defined custom field types.
+Have a look at [invenio sources](https://github.com/inveniosoftware/invenio-records-resources/tree/master/invenio_records_resources/services/custom_fields) for the list of pre-defined custom field types.
+
+Then just create your vocabulary item with the normal service - [see the test for an example](https://github.com/oarepo/oarepo-vocabularies/blob/main/tests/test_cf.py)
 
 ## Using hierarchies in vocabulary items
 
@@ -139,3 +140,34 @@ The `links` section is enhanced to help you with navigation to parent, children 
 The "hierarchy" section is defined via custom fields, see [the code](https://github.com/oarepo/oarepo-vocabularies/blob/main/oarepo_vocabularies/services/custom_fields/hierarchy.py).
 
 In your use case you might want to add more information from the ancestors (such as icons, some properties, ...). To do so, define your own custom field and put it to your `invenio.cfg` - but make sure to copy [all the standard system fields](https://github.com/oarepo/oarepo-vocabularies/blob/main/oarepo_vocabularies/config.py).
+
+## Importing vocabularies from a file
+
+You can import vocabularies from yaml, csv, json lines or excel (xlsx) file formats. To do so, call:
+
+```bash
+invenio oarepo vocabularies fixtures <folder>
+```
+
+The folder must contain `vocabularies.yaml` with imported vocabulary types:
+
+```yaml
+access-rights:
+  pid-type: v-ar
+  title:
+    cs: Přístupová práva
+    en: Access rights
+  data-file: accessRights.xlsx
+
+contributor-types:
+  pid-type: v-ct
+  title:
+    cs: Role přispěvatele
+    en: Contributor Type
+  data-file: contributorType.xlsx
+```
+
+The data files are then just serialized vocabulary items.
+For yaml format, see for example fixtures at [RDM](https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/funders.yaml).
+
+The excel is just a table where column names are the fields. Nesting is represented with dot or underscore, arrays with 0-based indices. See examples at `https://github.com/oarepo/oarepo-vocabularies/tree/main/tests/complex-data`.

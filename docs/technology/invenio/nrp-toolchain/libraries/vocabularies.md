@@ -12,7 +12,7 @@ To install the library, add `oarepo-vocabularies` to your dependencies (pipfile,
 ## Usage
 
 This library replaces Invenio service and resource config with a custom-fields enhanced one. To use it, please add the following
-to your `invenio.cfg`, or define `INVENIO_XXX` environment variables:
+lines to your `invenio.cfg`:
 
 ```python
 # invenio.cfg

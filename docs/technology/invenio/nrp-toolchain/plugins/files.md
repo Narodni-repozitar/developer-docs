@@ -1,4 +1,4 @@
-# OARepo model builder files
+# Files
 
 Plugin adding support for working with files based on the invenio model.
 Files are represented as another ("file") record connected with the original parent one.

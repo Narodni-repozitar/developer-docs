@@ -1,4 +1,4 @@
-# OARepo model builder expansions
+# Expansions
 Plugin for oarepo-model-builder to allow invenio expandable fields. Expandable fields allow saving fields of other referenced records in the referencing record object.
 Expandable fields are specified on model level as a list and the yaml for 
 single expandable field has following structure:

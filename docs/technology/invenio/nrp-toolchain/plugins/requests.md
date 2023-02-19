@@ -1,4 +1,4 @@
-# OARepo model builder requests
+# Requests
 Plugin for oarepo-model-builder to allow specifying requests 
 tied to the base model, based on invenio requests.
 

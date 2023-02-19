@@ -1,4 +1,4 @@
-# OARepo model builder tests
+# Tests
 Plugin for oarepo-model-builder to generate 
 test files and add test dependencies.
 

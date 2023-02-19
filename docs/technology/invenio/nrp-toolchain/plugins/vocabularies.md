@@ -1,4 +1,4 @@
-# Vocabularies plugin
+# Vocabularies
 
 This plugin provides support for adding vocabulary references to your model. It can link to a standard invenio vocabularies as well as to oarepo addon to support extended metadata on vocabulary items and hierarchies of vocabulary items (taxonomies). 
 

@@ -397,3 +397,92 @@ auto_field:
     read: true          # default value
     write: false
 ```
+## Search options annotations
+
+Options for creating facets and sorting rules can be specified within the model.
+
+### Facets creation
+
+It is possible to specify a Boolean `searchable` field at the top level of the model. If this value is set to false, facets will not be created for any fields unless otherwise specified within the fields. By default, this value is set to true. The no-facet-creation setting does not apply to the Invenio default fields (id, $schema, created, updated).
+In the example below, only facets for invenio fields will be generated, because the `searchable` option is set to false.
+```json
+"model": {
+                "use": "invenio",
+                "searchable" : false,
+                "properties": {
+                   "a" : "fulltext+keyword",
+                   "b" : "keyword"
+
+            },
+```
+
+Will generate
+
+```python
+_id = TermsFacet(field = "id")
+
+created = TermsFacet(field = "created")
+
+updated = TermsFacet(field = "updated")
+
+_schema = TermsFacet(field = "$schema")
+```
+If the `searchable` option is not set or is set to true:
+```json
+"model": {
+                "use": "invenio",
+                "properties": {
+                   "a" : "fulltext+keyword",
+                   "b" : "keyword"
+
+            },
+```
+
+Will generate
+
+```python
+a_keyword = TermsFacet(field = "a.keyword")
+
+b = TermsFacet(field="b")
+
+_id = TermsFacet(field = "id")
+
+created = TermsFacet(field = "created")
+
+updated = TermsFacet(field = "updated")
+
+_schema = TermsFacet(field = "$schema")
+```
+### Facets additional definition
+
+You can specify the exact facet value for each field and change the facet key name. For this purposes use `field` and `key` in `facets` object, as in the example below. It is also possible to specify whether to create a facet for a given field using the searchable Boolean value. If the facet object is used and the searchable field is not defined, it is automatically set to true.
+
+```json
+"model": {
+                "properties": {
+                   "a" : {
+                      "type" : "keyword",
+                      "facets": {"searchable": false}
+                   },
+                   "b" : {
+                      "type" : "keyword",
+                      "facets": {"key": "name"}
+                   },
+                   "c" : {
+                      "type" : "keyword",
+                      "facets": {"field": "TermsFacet(field="name")"}
+                   },
+                   
+
+            },
+```
+
+Will generate
+
+```python
+
+name = TermsFacet(field="b")
+
+c = TermsFacet(field = "name")
+
+```

@@ -54,6 +54,7 @@ dict(
     ),
     links=dict(),
     custom_fields=dict(),
+    createUrl='/api/records/'
     **kwargs,
 )
 
@@ -61,7 +62,10 @@ dict(
 
 ### UI resource views
 
-Resource views for both form contexts (`create` vs. `edit`) are very similar:
+Resource views for both form contexts (`create` vs. `edit`) are very similar. It generates
+form config, determines which layout template to render, invokes all registered resource `components`,
+that implements `before_ui_create` or `before_ui_edit`, and finally renders the template with the
+following Jinja context.
 
 ```python
     @login_required
@@ -69,6 +73,11 @@ Resource views for both form contexts (`create` vs. `edit`) are very similar:
     @request_view_args
     def create|edit(self):
         #...
+        form_config = self.config.form_config(
+            identity=g.identity,
+            updateUrl=record.links.get("self", None)
+        )
+
         self.run_components(
             "before_ui_create|edit",
             layout=layout,
@@ -105,8 +114,8 @@ The only major difference is, that for `create` context, an `empty_record`:
 empty_record = self.empty_record(resource_requestctx)
 ```
 
-is being used for form's `record` data. This function creates a record according to its metadata structure,
-with all its values left blank.
+is being used as `record` data. This function creates an empty record according
+to its metadata structure, with all its values left blank.
 
 In `edit` context, both raw `record` metadata **and** `ui` serialized record
 representation is passed to form template context.
@@ -130,7 +139,7 @@ class RecordsUIResourceConfig(UIResourceConfig):
 This template provides a basic mount point for React form apps, and multiple hidden inputs,
 feeding backend form configuration to the React form apps.
 
-Simplified version with just the extensibility block definitions looks like this:
+A condensed version with just the extensibility-point block definitions looks like this:
 
 ```python
 {% extends config.BASE_TEMPLATE %}
@@ -154,4 +163,37 @@ Simplified version with just the extensibility block definitions looks like this
         <div id="form-app"></div>
     {%- endblock form_main_content -%}
 {% endblock page_body %}
+```
+
+As you can see here, this template cannot be used on its own. You will need to extend this template in your ui app and
+inject atleast some `your-formapp-entrypoint-here.js` JS entrypoint handling your React Form app to the `javascript` block.
+
+### React hooks & utils
+
+This library provides utilities and React hooks to help you with creating your own React form application.
+
+#### createFormAppInit
+
+A form application initialization function, that:
+
+- Reads & parses hidden inputs from the Jinja template.
+- Loads any overridden React components passed as `defaultComponents` (see [react-overridable](https://github.com/indico/react-overridable)).
+- Creates a React Context Provider `FormConfigProvider` with config values from hidden inputs.
+- Finds an element with `id=form-app` in the Jinja template.
+- Renders a root Form app layout component given by overridable id `FormApp.layout`, wrapped in `FormConfigProvider` and `ContainerComponent`.
+
+```jsx
+createFormAppInit(
+  defaultComponents,
+  autoInit = true,
+  ContainerComponent = React.Fragment
+)
+```
+
+#### useFormConfig
+
+A React hook used to access `FormConfigProvider` context in `FormApp.layout` and any of its children components.
+
+```jsx
+const { record, formConfig, recordPermissions } = useFormConfig();
 ```

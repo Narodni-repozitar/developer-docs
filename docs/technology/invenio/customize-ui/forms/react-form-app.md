@@ -36,6 +36,9 @@ theme = WebpackThemeBundle(
 )
 ```
 
+The entrypoint name `my_app_ui_forms` must correspond to what you
+used in your [Jinja template](./template-context.md#jinja-templates).
+
 ## Form app initialization
 
 Now we need to provide an `index.js` file in a path according to the

@@ -36,22 +36,10 @@ class RecordsUIResourceConfig:
 ```
 
 The default config structure looks like this, but can be further customized in multiple ways described
-in `#FIXME: reference to form config section`
+in [Customizing form config](./form-config).
 
 ```python
 dict(
-    current_locale='...',
-    locales=[
-        {"value": '...', "text": '...'}
-        {"value": '...', "text": '...'}
-        {"value": '...', "text": '...'}
-    ],
-    default_locale='...',
-    languages=dict(
-        common=[...],
-        all=[...]
-    ),
-    links=dict(),
     custom_fields=dict(),
     createUrl='/api/records/'
     **kwargs,
@@ -159,6 +147,7 @@ A condensed version with just the extensibility-point block definitions looks li
         <input id="record" type="hidden" name="record" value='{{data | tojson }}' />
         <input type="hidden" name="form-config" value='{{form_config | tojson }}' />
         <input id="record-permissions" type="hidden" name="record-permissions" value='{{permissions | tojson }}' />
+        <input id="links" type="hidden" name="links" value='{{links | tojson }}' />
         <div id="form-app"></div>
     {%- endblock form_main_content -%}
 {% endblock page_body %}
@@ -194,5 +183,20 @@ createFormAppInit(
 A React hook used to access `FormConfigProvider` context in `FormApp.layout` and any of its children components.
 
 ```jsx
-const { record, formConfig, recordPermissions } = useFormConfig();
+const { record, formConfig, recordPermissions, links } = useFormConfig();
+```
+
+#### useOnSubmit
+
+Used for handling Formik form submission.
+
+```jsx
+export const useOnSubmit = ({
+    apiUrl,   // Target URL for apiClient to make requests to
+    context = submitContextType.create,   // Submission context, e.g. "create", "update"...
+    apiClient = OARepoDepositApiClient,   // API client implementation instance
+    onBeforeSubmit = () => { },   // Callback (or array of) functions, called before submit request
+    onSubmitSuccess = () => { },  // Callback (or array of) functions, called on successful submit request
+    onSubmitError = () => { }     // Callback (or array of) functions, called when submit request failed
+}) => { onSubmit, submitError }
 ```

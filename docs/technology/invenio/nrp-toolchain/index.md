@@ -1,3 +1,6 @@
+---
+sidebar_position: 3
+---
 # NRP toolchain
 
 NRP toolchain is a command-line tool (nrp-cli) and associated set of libraries
@@ -30,6 +33,5 @@ manually.
 * [Edit the metadata](edit-metadata)
 * [Generate the model](generate-model)
 * [Install the model](install-model)
-
 
 Finally, run the server and head your browser to `https://localhost:5000/api/your-model-name/` - you have your API running there

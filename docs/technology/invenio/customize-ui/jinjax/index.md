@@ -1,4 +1,4 @@
-### JinjaX
+# JinjaX
 
 See also [JinjaX documentation](https://jinjax.scaletti.dev/).
 
@@ -9,7 +9,7 @@ The relative path to the component is taken from the configuration
 Components by default accept record metadata, ui definition and layout definition as parameters.
 To work with parameters within components, you need to define them in the template in the way described in the JinjaX documentation.
 
-### Examples
+## Examples
 
 Example of component specification in config:
 
@@ -60,6 +60,6 @@ Sample of possible contents of Main component:
 
 ```
 
-#### JinjaX components
+## JinjaX components
 
 Within the Oarepo-ui library, basic components are defined in the `templates` folder.

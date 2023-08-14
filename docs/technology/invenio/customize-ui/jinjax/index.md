@@ -21,8 +21,7 @@ templates = {
                 "record_main_content": "Main",
                 "record_sidebar": "Sidebar",
             },
-        },
-        "search": {"layout": "docs_app/search.html"},
+        }
     }
 ```
 
